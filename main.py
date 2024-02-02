@@ -1,68 +1,70 @@
 import time
 from random_word import RandomWords
 
-user = input("Enter player name: ")
-print("Welcome, ", user, "!", sep="")
+def welcome_user():
+    """
+    Gets the player's name and displays a welcome message.
+    """
+    user = input("Enter player name: ")
+    print("Welcome, ", user, "!", sep="")
+    time.sleep(1)
 
-time.sleep(1)
-print("Start guessing: ")
-time.sleep(0.5)
+def display_start_message():
+    """
+    Displays the start message with a delay for a better user experience.
+    """
+    print("Start guessing: ")
+    time.sleep(0.5)
 
-words = RandomWords()
-word = words.get_random_word()
+def generate_random_word():
+    """
+    Generates a random word for the player to guess.
+    """
+    words = RandomWords()
+    return words.get_random_word()
 
-guesses = ""
-turns = 10
-
-while turns > 0:
-
-    # make a counter that starts with zero
-    failed = 0
-
-    # for every character in secret_word
+def display_word_progress(word, guesses):
+    """
+    Displays the word with correct guesses or underscores.
+    """
     for char in word:
+        print(char if char in guesses else "_", end="")
+    print()
 
-        # see if the character is in the players guess
-        if char in guesses:
+def main_game_loop(word):
+    """
+    Manages the main game loop, prompting the player for guesses and updating the game state.
+    """
+    guesses = ""
+    turns = len(word)
 
-            # print then out the character
-            print(char, end=""),
+    while turns > 0:
+        display_word_progress(word, guesses)
+        if all(char in guesses for char in word):
+            print("\nYou won")
+            break
 
-        else:
+        guess = input("Guess a character:")
+        guesses += guess
 
-            # if not found, print a dash
-            print("_", end=""),
+        if guess not in word:
+            turns -= 1
+            print("Wrong")
+            print("You have", turns, 'more guesses')
 
-            # and increase the failed counter with one
-            failed += 1
+            if turns == 0:
+                print("Correct word:", word)
+                print("You Lose")
 
-            # if failed is equal to zero
+def play_game():
+    """
+    Orchestrates the game by calling relevant functions.
+    """
+    welcome_user()
+    display_start_message()
+    word_to_guess = generate_random_word()
+    main_game_loop(word_to_guess)
 
-    # print You Won
-    if failed == 0:
-        print("\nYou won")
-        # exit the script
-        break
-        # ask the user go guess a character
-    guess = input("guess a character:")
-
-    # set the players guess to guesses
-    guesses += guess
-
-    # if the guess is not found in the secret word
-    if guess not in word:
-
-        # turns counter decreases with 1 (now 9)
-        turns -= 1
-
-        # print wrong
-        print("Wrong")
-
-        # how many turns are left
-        print("You have", + turns, 'more guesses')
-
-        # if the turns are equal to zero
-        if turns == 0:
-            # print "You Lose"
-            print(word)
-            print("You Lose")
+# Entry point of the program
+if __name__ == "__main__":
+    play_game()
