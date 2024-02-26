@@ -4,7 +4,7 @@ Welcome to the Word Guessing Game! This is a simple Python game where the player
 
 ## How to Play
 
-1. Run the `word_guessing_game.py` script.
+1. Run the `main.py` script.
 2. You will be prompted to enter your name.
 3. You will then be given a random word to guess.
 4. Guess characters one by one to complete the word.
@@ -26,21 +26,6 @@ Welcome to the Word Guessing Game! This is a simple Python game where the player
 
 1. Make sure you have Python installed on your system.
 2. Install the `random_word` library using `pip install random-word`.
-3. Run the `word_guessing_game.py` script using Python.
-
-## Example Usage
-
-$ python word_guessing_game.py
-Enter your name: John
-Start guessing:
-
-Guess a character: a
-
-Guess a character: e
-
-...
-
-mathematica
-
+3. Run the `main.py` script using Python.
 
 Enjoy playing the Word Guessing Game!
